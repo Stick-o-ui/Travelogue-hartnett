@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore the Philippines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f8f8f8;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }        
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: url('https://i.imgur.com/q397mR4.png') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero h1, .hero p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 24px;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        /* Destination Cards */
+        .places {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .destination {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            margin: 20px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .destination:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination img {
+            width: 350px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .destination .info {
+            flex: 1;
+        }
+
+        .destination h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .destination p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 50px 20px;
+            background: #222;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .contact p {
+            font-size: 20px;
+        }
+
+        /* About Section */
+        .about {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .about p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .footer a {
+            color: #ff9800;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 24px;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .places {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .destination {
+            display: flex;
+            align-items: center;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 10px;
+            margin: 30px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 30px;
+            cursor: pointer;
+        }
+
+        .destination img {
+            width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 30px;
+        }
+
+        .destination .info {
+            flex: 1;
+        }
+
+        .destination h3 {
+            font-size: 32px;
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .destination p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: black;
+        }
+
+        .hidden-section {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(230, 230, 230, 0.9);
+            border-radius: 10px;
+        }
+
+        .hidden-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+
+        .hidden-box img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        .hidden-box p {
+            flex: 1;
+            font-size: 16px;
+            color: black;
+            
+        /* Responsive */
+        @media (max-width: 768px) {
+            .destination {
+                flex-direction: column;
+                text-align: center;
+            }            
+            
+            .destination img {
+                margin: 0 0 15px 0;
+            }            
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Discover the Beauty of the Philippines</h1>
+        <p>Explore breathtaking destinations across the country, from historical landmarks</p>
+    </div>
+
+    <div class="places">
+
+        <!-- MOA -->
+        <div class="destination" onclick="toggleSection('moa-info')">
+            <img src="https://i.imgur.com/Fxpig4V.jpeg" alt="MOA">
+            <div class="info">
+                <h3>MOA (Mall of Asia)</h3>
+                <p>SM Mall of Asia (also abbreviated as SM MoA, or simply Mall of Asia or MoA)is a large shopping mall in the Philippines, located at Bay City, Pasay, Philippines, within the SM Central Business Park, a reclaimed area within Manila Bay, and the southern end of Epifanio de los Santos Avenue</p>
+            </div>
+        </div>
+        <div class="hidden-section" id="moa-info">
+            <div class="hidden-box"><img src="https://i.imgur.com/H2f7LQu.jpeg"><p>One of the largest malls in Asia, MOA offers shopping, entertainment, and a stunning view of Manila Bay.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/Jqv2yOZ.jpeg"><p>The grand MOA Arena, home to concerts and events.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/jccb73O.jpeg"><p>The famous MOA globe, a landmark of the mall.</p></div>
+        </div>
+
+        <!-- Antipolo -->
+        <div class="destination" onclick="toggleSection('antipolo-info')">
+            <img src="https://i.imgur.com/0OkX0KW.jpeg" alt="Antipolo">
+            <div class="info">
+                <h3>Antipolo</h3>
+                <p>Antipolo, officially the City of Antipolo (Filipino: Lungsod ng Antipolo), is a component city and capital of the province of Rizal, Philippines.[5] According to the 2020 census, it has a population of 887,399 people. It is the most populous city in Rizal Province and in Calabarzon region, and the seventh most-populous city in the Philippines. It is also the most populated city under the component city status..</p>
+            </div>
+        </div>
+        <div class="hidden-section" id="antipolo-info">
+            <div class="hidden-box"><img src="https://i.imgur.com/2XYBogX.jpeg"><p>The best tourist spot on antipolo its called cloud 9.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/G480x4a.jpeg"><p>The best food we know on antipolo.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/jtkiIXM.jpeg"><p>Hinulugang Taktak waterfall..</p></div>
+        </div>
+
+        <!-- Binondo -->
+        <div class="destination" onclick="toggleSection('binondo-info')">
+            <img src="https://i.imgur.com/h0lirWe.jpeg" alt="Binondo">
+            <div class="info">
+                <h3>Binondo</h3>
+                <p>Binondo (Chinese: 岷倫洛; pinyin: Mínlúnluò; Pe̍h-ōe-jī: Bîn-lûn-lo̍h) is a district in Manila and is referred to as the city's Chinatown. Its influence extends beyond to the places of Quiapo, Santa Cruz, San Nicolas and Tondo. It is the oldest Chinatown in the world, established in 1594 by the Spaniards as a settlement near Intramuros but across the Pasig River for Catholic Chinese; it was positioned so that the colonial administration could keep a close eye on their migrant subjects. It was already a hub of Chinese commerce even before the Spanish colonial period. Binondo is the center of commerce and trade of Manila, where all types of business run by Chinese Filipinos thrive.</p>
+            </div>
+        </div>
+        <div class="hidden-section" id="binondo-info">
+            <div class="hidden-box"><img src="https://i.imgur.com/DjfK704.jpeg"><p>Welcome to Binondo, the world's oldest Chinatown.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/Cl2ynUD.jpeg"><p>Binondo Church in manila </p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/tqiEifE.jpeg"><p>Famous bridge in BINONDO</p></div>
+        </div>
+
+        <!-- Zambales -->
+        <div class="destination" onclick="toggleSection('zambales-info')">
+            <img src="https://i.imgur.com/7ORWpxg.jpeg" alt="Zambales">
+            <div class="info">
+                <h3>Zambales</h3>
+                <p>(Zambales), is a province in the Philippines located in the Central Luzon region. Its capital is Iba, which is located in the middle of the province. Olongapo is the largest city of the province wherein it is geographically located but politically independent..</p>
+            </div>
+        </div>
+        <div class="hidden-section" id="zambales-info">
+            <div class="hidden-box"><img src="https://i.imgur.com/HpK1Whr.jpeg"><p>Stunning beaches in Zambales and beautiful places to overnight.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/FqwQILS.jpeg"><p>Crystal-clear waters and scenic views.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/0EXsMR7.jpeg"><p>Amazing islands perfect for adventure.</p></div>
+        </div>
+
+        <!-- Pangasinan -->
+        <div class="destination" onclick="toggleSection('pangasinan-info')">
+            <img src="https://i.imgur.com/CtjEl1t.jpeg" alt="Pangasinan">
+            <div class="info">
+                <h3>Pangasinan</h3>
+                <p>Pangasinan, meaning "land of salt" or "place of salt-making," has a rich history rooted in its salt-making industry and ancient Austronesian settlements along Lingayen Gulf, dating back to at least the 8th century. It evolved from a kingdom called Luyag na Caboloan to an encomienda and then a province under Spanish rule, with its founding day celebrated on April 5, 1580. 
+Pre-Spanish Period:
+Origin:
+Pangasinan is believed to have been settled by Austronesian peoples, who arrived by sea during the Austronesian expansion.</p>
+            </div>
+        </div>
+        <div class="hidden-section" id="pangasinan-info">
+            <div class="hidden-box"><img src="https://i.imgur.com/CYma2g5.jpeg"><p>Faith tourism in pangasinan</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/gWeWNzT.jpeg"><p>beautiful beaches of Pangasinan.</p></div>
+            <div class="hidden-box"><img src="https://i.imgur.com/DgwmUqe.jpeg"><p>hundred island and much flowers</p></div>
+        </div>
+
+    </div>
+    
+    <!-- About Section -->
+    <div class="about" id="about">
+        <p>WE ARE GRADE 11 H.E FROM SECTION HARTNETT AND THIS WEBSITE IS FOR ONLY SCHOOL PURPOSES YOU CAN SEND FEEDBACK ON MY GMAIL OR JUST CALL ME IF YOU WANT TO KNOW SOMETHING AND IF YOU WANT US TO ADD MORE THX FOR VISITING </p>
+    </div>
+
+<!-- Image Slider Section (Added at the Last Part) -->
+<div class="slider" id="slider">
+    <img id="slider-img" src="https://i.imgur.com/q7wJtl7.jpeg" alt="Slide">
+</div>
+
+<style>
+    .slider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 800px;
+        margin: 50px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        touch-action: pan-y;
+    }
+
+    .slider img {
+        width: 100%;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+</style>
+
+<script>
+    let images = [
+        "https://i.imgur.com/q7wJtl7.jpeg",
+        "https://i.imgur.com/4rr5IZS.jpeg"
+    ];
+    let index = 0;
+    let startX = 0;
+
+    const slider = document.getElementById("slider");
+    const sliderImg = document.getElementById("slider-img");
+
+    // Detect touch start
+    slider.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    // Detect touch move and change image
+    slider.addEventListener("touchend", (e) => {
+        let endX = e.changedTouches[0].clientX;
+        if (startX > endX + 50) {
+            nextSlide(); // Swipe left
+        } else if (startX < endX - 50) {
+            prevSlide(); // Swipe right
+        }
+    });
+
+    function nextSlide() {
+        index = (index + 1) % images.length;
+        sliderImg.style.transform = "translateX(-100%)";
+        setTimeout(() => {
+            sliderImg.src = images[index];
+            sliderImg.style.transform = "translateX(0)";
+        }, 200);
+    }
+
+    function prevSlide() {
+        index = (index - 1 + images.length) % images.length;
+        sliderImg.style.transform = "translateX(100%)";
+        setTimeout(() => {
+            sliderImg.src = images[index];
+            sliderImg.style.transform = "translateX(0)";
+        }, 200);
+    }
+</script>
+
+    <!-- Contact Section -->
+    <div class="contact" id="contact">
+        <p>Email: <a href="mailto:goldpsg224@gmail.com" style="color: #ff9800;">goldpsg224@gmail.com</a></p>
+        <p>Phone: 09507593526</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Explore Philippines | <a href="#">This is for only school purpose</a> | <a href="#">Thx for visiting </a></p>
+    </div>
+    
+    <script>
+        function toggleSection(id) {
+            var section = document.getElementById(id);
+            section.style.display = section.style.display === "block" ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
